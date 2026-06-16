@@ -1,0 +1,21 @@
+{
+  "name": "gamebackend",
+  "version": "1.0.0",
+  "description": "back end investigation game",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js",
+    "test": "echo \"No backend tests configured\""
+  },
+  "dependencies": {
+    "cores": "^0.8.5",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongoose": "^9.7.0",
+    "socket.io": "^4.8.3"
+  }
+}
