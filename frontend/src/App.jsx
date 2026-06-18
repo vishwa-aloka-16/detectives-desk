@@ -976,6 +976,10 @@ function App() {
         });
       }
 
+      if (nextRoom?.viewer) {
+        setRole(nextRoom.viewer.isHost ? "host" : "player");
+      }
+
       if (shouldShowTimeoutMessage) {
         setSubmissionState({
           loading: false,
