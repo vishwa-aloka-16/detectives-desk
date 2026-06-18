@@ -1045,6 +1045,14 @@ function App() {
 
   const activeScreen = useMemo(() => getScreen(room, role, joined), [room, role, joined]);
 
+  useEffect(() => {
+    if (!joined || !activeScreen) {
+      return;
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [joined, activeScreen, room?.dashboard?.currentTask?.id]);
+
   const handleHostCreate = () => {
     const socket = socketRef.current;
     if (!socket) {
