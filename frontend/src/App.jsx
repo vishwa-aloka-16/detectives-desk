@@ -7,6 +7,8 @@ import detectiveTorch from "./assets/detective torch and gunSearch.png";
 import detectiveStanding from "./assets/detective standingSearch.png";
 import detectiveSneaking from "./assets/detective sneakingSearch.png";
 import detectiveCamera from "./assets/detective camara shootingSearch.png";
+import detectiveTop from "./assets/detective top part.png";
+import detectiveTopWriting from "./assets/detective writing top half.png";
 
 const SOCKET_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
 
@@ -178,8 +180,7 @@ function LandingScreen({ onHost, onJoin, loading }) {
     <div className="screen center-screen">
       <div className="landing-shell">
         <div className="hero-illustration-row">
-          <img className="hero-illustration hero-illustration--left" src={detectiveStanding} alt="" />
-          <img className="hero-illustration hero-illustration--right" src={detectiveMagnifier} alt="" />
+          <img className="hero-illustration hero-illustration--top" src={detectiveTop} alt="" />
         </div>
         <div className="case-meta">
           <div className="meta-line" />
@@ -218,12 +219,14 @@ function JoinScreen({ code, name, setCode, setName, onBack, onJoin, loading }) {
   return (
     <div className="screen center-screen">
       <div className="panel narrow-panel">
-        <div className="card-illustration-wrap card-illustration-wrap--top">
-          <img className="card-illustration" src={detectiveNotebook} alt="" />
+        <div className="join-panel-top">
+          <button className="btn btn-outline back-btn" type="button" onClick={onBack}>
+            Back
+          </button>
+          <div className="card-illustration-wrap card-illustration-wrap--top">
+            <img className="card-illustration card-illustration--join-top" src={detectiveTopWriting} alt="" />
+          </div>
         </div>
-        <button className="btn btn-outline back-btn" type="button" onClick={onBack}>
-          Back
-        </button>
 
         <div className="panel-header">
           <MagIcon size={20} color="var(--green)" />
@@ -331,8 +334,19 @@ function PlayerLobbyScreen({ room, viewerName }) {
     <div className="screen page-shell">
       <div className="panel centered-panel">
         <p className="eyebrow">ROOM LOCKED IN</p>
+        <div className="player-lobby-illustration-wrap">
+          <img className="player-lobby-illustration" src={detectiveStanding} alt="" />
+        </div>
         <h2>Welcome, Detective {viewerName}</h2>
         <div className="room-code room-code--small">{room.code}</div>
+        <p className="player-lobby-waiting">
+          Wait until others join
+          <span className="player-lobby-waiting__dots" aria-hidden="true">
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+          </span>
+        </p>
         <p className="subtle">Everyone reads first, then each player works through questions at their own pace.</p>
       </div>
 
@@ -799,6 +813,7 @@ function CaseClosedScreen({ room, onRestart }) {
   const viewer = room.viewer;
   const score = viewer?.score || 0;
   const rank = score >= 1800 ? "Master Detective" : score >= 1100 ? "Senior Investigator" : "Field Agent";
+  const topDetectives = room.players.slice(0, 3);
 
   return (
     <div className="screen center-screen">
@@ -823,11 +838,11 @@ function CaseClosedScreen({ room, onRestart }) {
         <div className="panel panel-soft">
           <div className="section-head">
             <h3>Top Detectives</h3>
-            <span className="mono-small">Final board</span>
+            <span className="mono-small">Top 3 only</span>
           </div>
-          <PlayerList players={room.players} highlightId={viewer?.id} />
+          <PlayerList players={topDetectives} highlightId={viewer?.id} />
         </div>
-        <button className="btn btn-primary" type="button" onClick={onRestart}>
+        <button className="btn btn-primary results-card__action" type="button" onClick={onRestart}>
           Return to Landing
         </button>
       </div>
